@@ -26,11 +26,12 @@ const renderError = () => (
   <Text style={styles.redText}>An Error occured while obtaining contacts</Text>
 );
 
-const shareMessage = message => {
+const shareMessage = (message: string) => {
   Share.share({
     message
   });
 };
+
 const ContactComponent = (props: Props) => {
   const { didSave, isLoading, error, saveContacts, myCode } = props;
 

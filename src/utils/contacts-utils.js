@@ -18,6 +18,8 @@ export const getContacts = () => {
 	});
 };
 
+
+// Show permission Dialog on Android
 const requestContactsPermission = async() => {
 	try {
 		return await PermissionsAndroid.request(

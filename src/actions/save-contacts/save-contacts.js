@@ -1,7 +1,7 @@
 // @flow
 import { fetchContacts } from "../fetch-contacts/fetch-contacts";
 import { saveContactsSuccess } from "./save-contacts-success";
-import { saveContactsToFirebase } from "../../services/firebase-utils";
+import { saveContactsToFirebase } from "../../utils/firebase-utils";
 
 export const saveContacts = () => (dispatch: Function, getState: Function) => {
 	return dispatch(fetchContacts()).then(() => {
