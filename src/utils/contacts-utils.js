@@ -1,18 +1,18 @@
 // @flow
 import Contacts from "react-native-contacts";
-import { PermissionsAndroid } from "react-native";
+import { Platform, PermissionsAndroid } from "react-native";
 
 export const getContacts = () => {
-	return requestContactsPermission().then(isGranted => {
+	return requestContactsPermission().then(result => {
 		return new Promise((resolve, reject) => {
-			if (!isGranted) {
-				reject(new Error("Permission Denied"));
+			if (result !== "granted") {
+				return reject(new Error("Permission Denied"));
 			}
 			Contacts.getAll((err, contacts) => {
 				if (err) {
-					reject(err);
+					return reject(err);
 				}
-				resolve(contacts);
+				return resolve(contacts);
 			});
 		});
 	});
@@ -21,8 +21,9 @@ export const getContacts = () => {
 // Show permission Dialog on Android
 // Only needed on Andorid
 const requestContactsPermission = async () => {
-	if (Platform.OS === 'ios') {
-		return new Promise();
+	if (Platform.OS === "ios") {
+		// Follow Android granted return value
+		return new Promise("granted");
 	}
 
 	return await PermissionsAndroid.request(
