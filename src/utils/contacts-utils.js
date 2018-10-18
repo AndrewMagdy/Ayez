@@ -18,18 +18,18 @@ export const getContacts = () => {
 	});
 };
 
-
 // Show permission Dialog on Android
-const requestContactsPermission = async() => {
-	try {
-		return await PermissionsAndroid.request(
-			PermissionsAndroid.PERMISSIONS.READ_CONTACTS,
-			{
-				title: "Ayez Contacts Permission",
-				message: "Ayez App needs access to your Contacts "
-			}
-		);
-	} catch (err) {
-		console.warn(err);
+// Only needed on Andorid
+const requestContactsPermission = async () => {
+	if (Platform.OS === 'ios') {
+		return new Promise();
 	}
-}
+
+	return await PermissionsAndroid.request(
+		PermissionsAndroid.PERMISSIONS.READ_CONTACTS,
+		{
+			title: "Ayez Contacts Permission",
+			message: "Ayez App needs access to your Contacts "
+		}
+	);
+};

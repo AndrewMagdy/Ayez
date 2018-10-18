@@ -5,7 +5,6 @@ import {
   View,
   TouchableOpacity,
   Text,
-  Button,
   ActivityIndicator,
   Share
 } from "react-native";
