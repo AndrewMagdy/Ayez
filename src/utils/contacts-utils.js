@@ -5,9 +5,10 @@ import { Platform, PermissionsAndroid } from "react-native";
 export const getContacts = () => {
 	return requestContactsPermission().then(result => {
 		return new Promise((resolve, reject) => {
-			if (result !== "granted") {
+			if (Platform.OS === "android" && result !== "granted") {
 				return reject(new Error("Permission Denied"));
 			}
+
 			Contacts.getAll((err, contacts) => {
 				if (err) {
 					return reject(err);
@@ -22,8 +23,7 @@ export const getContacts = () => {
 // Only needed on Andorid
 const requestContactsPermission = async () => {
 	if (Platform.OS === "ios") {
-		// Follow Android granted return value
-		return new Promise("granted");
+		return;
 	}
 
 	return await PermissionsAndroid.request(
